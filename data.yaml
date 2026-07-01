@@ -1,0 +1,7 @@
+# YOLOv8 Custom Dataset Configuration
+path: /home/rasul-gurbanli/Desktop/skywalker_20/skywalker_20/dataset # Absolute path to dataset root
+train: images                                                       # Train subdirectory containing images
+val: images                                                         # Val subdirectory containing images
+# single class
+names:
+  0: skywalker

@@ -1,0 +1,38 @@
+# Dataset
+dataset/
+dummy_data.yaml
+
+# Large weights and serialized models
+*.pt
+*.onnx
+*.torchscript
+*.engine
+release/best.pt
+release/last.pt
+release/onnx/
+release/torchscript/
+release/tensorrt/
+release/quantized/
+
+# Outputs and runs
+outputs/
+runs/
+
+# Logs
+logs/
+*.log
+
+# Python cache & build directories
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+
+# System-specific files
+.DS_Store
+Thumbs.db

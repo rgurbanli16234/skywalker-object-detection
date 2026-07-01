@@ -1,0 +1,5 @@
+gradio==3.50.2
+ultralytics==8.2.0
+opencv-python-headless
+numpy
+pillow

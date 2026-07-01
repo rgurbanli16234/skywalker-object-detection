@@ -1,0 +1,25 @@
+# YOLOv8 Training Hyperparameters & Pipeline Configuration
+
+# Model settings
+model: yolov8m.pt              # Start from pretrained yolov8m.pt model
+
+# Dataset settings
+data: data.yaml                 # Path to data.yaml dataset config file
+
+# Training hyperparameters
+epochs: 100                     # Train for 100 epochs
+imgsz: 640                      # Image size (640x640)
+batch: 16                       # Batch size (set to 16)
+device: 0                       # GPU device (0 for CUDA 0, or "cpu")
+amp: true                       # Enable Automatic Mixed Precision (AMP)
+deterministic: true             # Use deterministic training for reproducibility
+plots: true                     # Save training curves, confusion matrix, PR/F1 curves
+save: true                      # Enable automatic checkpointing and save best.pt / last.pt
+patience: 15                    # Early stopping patience (epochs to wait for val metric improvement)
+
+# Output directory settings
+project: outputs                # Root folder for saving model outputs
+name: skywalker_yolov8m         # Subdirectory for this specific training run
+exist_ok: true                  # Overwrite or resume in the same directory if it exists
+verbose: true                   # Print progress logs to stdout
+seed: 42                        # Seed for deterministic reproducibility

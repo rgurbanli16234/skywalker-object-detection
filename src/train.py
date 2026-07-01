@@ -173,11 +173,30 @@ class YOLOv8Trainer:
                 plots=self.config.get("plots", True),
                 save=self.config.get("save", True),
                 project=project_abs_path,
-                name=self.config.get("name", "skywalker_yolov8m"),
+                name=self.config.get("name", "skywalker_yolov8m_final"),
                 exist_ok=self.config.get("exist_ok", True),
-                patience=self.config.get("patience", 15),
+                patience=self.config.get("patience", 30),
                 seed=self.config.get("seed", 42),
-                verbose=self.config.get("verbose", True)
+                verbose=self.config.get("verbose", True),
+                lr0=self.config.get("lr0", 0.01),
+                lrf=self.config.get("lrf", 0.01),
+                cos_lr=self.config.get("cos_lr", True),
+                mosaic=self.config.get("mosaic", 1.0),
+                mixup=self.config.get("mixup", 0.15),
+                hsv_h=self.config.get("hsv_h", 0.015),
+                hsv_s=self.config.get("hsv_s", 0.7),
+                hsv_v=self.config.get("hsv_v", 0.4),
+                degrees=self.config.get("degrees", 0.0),
+                translate=self.config.get("translate", 0.1),
+                scale=self.config.get("scale", 0.5),
+                shear=self.config.get("shear", 0.0),
+                perspective=self.config.get("perspective", 0.0),
+                flipud=self.config.get("flipud", 0.0),
+                fliplr=self.config.get("fliplr", 0.5),
+                copy_paste=self.config.get("copy_paste", 0.3),
+                label_smoothing=self.config.get("label_smoothing", 0.1),
+                cache=self.config.get("cache", "ram"),
+                multi_scale=self.config.get("multi_scale", True)
             )
             
             run_save_dir = Path(results.save_dir)

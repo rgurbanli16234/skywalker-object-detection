@@ -141,9 +141,9 @@ def verify_environment(dataset_root: Union[str, Path] = "/home/rasul-gurbanli/De
         logger.error(msg)
         raise DatasetError(msg)
         
-    # Count files to verify there's data
-    img_files = list(images_dir.glob("*.[jJ][pP][gG]")) + list(images_dir.glob("*.[jJ][pP][eE][gG]")) + list(images_dir.glob("*.[pP][nN][gG]"))
-    lbl_files = list(labels_dir.glob("*.txt"))
+    # Count files to verify there's data (recursively through train/val subdirs)
+    img_files = list(images_dir.rglob("*.[jJ][pP][gG]")) + list(images_dir.rglob("*.[jJ][pP][eE][gG]")) + list(images_dir.rglob("*.[pP][nN][gG]"))
+    lbl_files = list(labels_dir.rglob("*.txt"))
     
     env_info["num_images"] = len(img_files)
     env_info["num_labels"] = len(lbl_files)

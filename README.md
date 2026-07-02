@@ -5,11 +5,11 @@
 ### Core Object Detection Metrics
 | Metric         | Value       |
 |----------------|-------------|
-| Precision      | 0.00333     |
-| Recall         | 1.0         |
-| F1-score       | 0.00664     |
-| mAP50          | 0.00516     |
-| mAP50-95       | 0.00309     |
+| Precision      | 0.74093     |
+| Recall         | 0.91048     |
+| F1-score       | 0.817       |
+| mAP50          | 0.73835     |
+| mAP50-95       | 0.58531     |
 
 ### Inference Speed & Latency
 | Metric               | Value        |
@@ -46,13 +46,11 @@ The YOLOv8n model was chosen as it offers the best balance of:
 ## Final Performance
 | Metric         | Value    |
 |----------------|----------|
-| Precision      | 0.00333  |
-| Recall         | 1.0      |
-| F1-score       | 0.00664  |
-| mAP50          | 0.00516  |
-| mAP50-95       | 0.00309  |
-| FPS (GPU)      | 30.6     |
-| Latency (ms)   | 32.683   |
+| Precision      | 0.74093  |
+| Recall         | 0.91048  |
+| F1-score       | 0.817    |
+| mAP50          | 0.73835  |
+| mAP50-95       | 0.58531  |
 
 ## Training Curves
 - **Loss Curves**: [Loss Curves](outputs/plots/results.png)

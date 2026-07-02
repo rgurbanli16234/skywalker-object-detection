@@ -6,11 +6,15 @@ import csv
 from pathlib import Path
 from typing import Dict, Any
 
+# Add project root to path to import from src/
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 from ultralytics import YOLO
 import pandas as pd
 
 # Import local utilities
-from utils import (
+from src.utils import (
     setup_logger,
     verify_environment,
     DatasetError

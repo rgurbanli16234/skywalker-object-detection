@@ -5,13 +5,17 @@ import json
 from pathlib import Path
 from typing import Dict, Any, List, Union, Tuple
 
+# Add project root to path to import from src/
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 import cv2
 import numpy as np
 import torch
 from ultralytics import YOLO
 
 # Import local utilities
-from utils import (
+from src.utils import (
     setup_logger,
     verify_environment,
     DatasetError

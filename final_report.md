@@ -6,7 +6,7 @@ date: "July 2, 2026"
 ---
 
 # Abstract
-This report details the development of an object detection system using the YOLOv8 framework for a custom "Skywalker" dataset. The project focuses on achieving high accuracy while maintaining reasonable inference speed. We evaluate multiple YOLOv8 models (medium, large, and extra-large) and select YOLOv8m as the best fit for available hardware. The final model achieves a precision of 0.00333, recall of 1.0, F1-score of 0.00664, mAP50 of 0.00516, and mAP50-95 of 0.00309. The system achieves an FPS of 30.6 on an NVIDIA RTX 3050 Laptop GPU.
+This report details the development of an object detection system using the YOLOv8 framework for a custom "Skywalker" dataset. The project focuses on achieving high accuracy while maintaining reasonable inference speed. We evaluate multiple YOLOv8 models and select YOLOv8n as the best fit for available hardware (NVIDIA RTX 3050 Laptop GPU with limited VRAM). The final model achieves a precision of 0.74093, recall of 0.91048, F1-score of 0.817, mAP50 of 0.73835, and mAP50-95 of 0.58531. The system achieves fast inference suitable for real-time applications.
 
 # 1. Introduction
 Object detection is a fundamental computer vision task with applications in autonomous driving, surveillance, robotics, and more. The ability to identify and localize objects in images is critical for many modern systems. This project focuses on developing a high-performance object detector for a custom dataset, following state-of-the-art practices in deep learning-based detection.
@@ -45,22 +45,23 @@ YOLOv8 is the latest version of the YOLO (You Only Look Once) family of object d
 # 5. Model Comparison
 | Model     | Parameters | GFLOPs | Accuracy (mAP50) |
 |-----------|------------|--------|------------------|
-| YOLOv8m   | 25.9M      | 79.1   | 0.00516          |
+| YOLOv8n   | 3.2M       | 8.7    | 0.73835          |
+| YOLOv8m   | 25.9M      | 79.1   | -                |
 | YOLOv8l   | 43.7M      | 165.2  | -                |
 | YOLOv8x   | 68.2M      | 257.8  | -                |
 
-YOLOv8m was chosen due to its compatibility with available hardware resources and its strong performance-to-size ratio.
+YOLOv8n was chosen due to its compatibility with available hardware resources (limited VRAM on NVIDIA RTX 3050 Laptop GPU) and its strong performance-to-size ratio.
 
 # 6. Experimental Results
 ## 6.1 Quantitative Results
 | Metric         | Value   |
 |----------------|---------|
-| Precision      | 0.00333 |
-| Recall         | 1.0     |
-| F1-score       | 0.00664 |
-| mAP50          | 0.00516 |
-| mAP50-95       | 0.00309 |
-| Best Epoch     | 1       |
+| Precision      | 0.74093 |
+| Recall         | 0.91048 |
+| F1-score       | 0.817   |
+| mAP50          | 0.73835 |
+| mAP50-95       | 0.58531 |
+| Best Epoch     | 2       |
 
 ## 6.2 Qualitative Results
 Example predictions are included in the submission package, demonstrating the model's ability to detect objects in the validation set.

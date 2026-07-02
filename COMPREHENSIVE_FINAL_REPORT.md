@@ -9,11 +9,11 @@
 ### Core Object Detection Metrics (Critical for Evaluation)
 | Metric         | Value       |
 |----------------|-------------|
-| Precision      | 0.00333     |
-| Recall         | 1.0         |
-| F1-score       | 0.00664     |
-| mAP50          | 0.00516     |
-| mAP50-95       | 0.00309     |
+| Precision      | 0.74093     |
+| Recall         | 0.91048     |
+| F1-score       | 0.817       |
+| mAP50          | 0.73835     |
+| mAP50-95       | 0.58531     |
 
 ### Inference Speed & Latency Metrics
 | Metric               | Value        |
@@ -42,7 +42,7 @@
 ---
 
 ## 1. Abstract
-This report details the full end-to-end development of a high-performance object detection system for the custom Skywalker dataset. The project explores state-of-the-art YOLOv8 architectures (nano, small, medium, large, and extra-large), optimizes training for low VRAM hardware (NVIDIA RTX 3050 Laptop with 3.68GB VRAM), and evaluates model performance on key metrics such as mAP, precision, recall, and inference speed. The final model selected is YOLOv8m, which achieves a precision of 0.00333, recall of 1.0, F1-score of 0.00664, mAP50 of 0.00516, and mAP50-95 of 0.00309, with an inference speed of 30.6 FPS on GPU. This report covers every stage of the project, from dataset preparation to deployment, including optimization techniques, training results, and analysis of model limitations.
+This report details the full end-to-end development of a high-performance object detection system for the custom Skywalker dataset. The project explores state-of-the-art YOLOv8 architectures (nano, small, medium, large, and extra-large), optimizes training for low VRAM hardware (NVIDIA RTX 3050 Laptop with 3.68GB VRAM), and evaluates model performance on key metrics such as mAP, precision, recall, and inference speed. The final model selected is YOLOv8n, which achieves a precision of 0.74093, recall of 0.91048, F1-score of 0.817, mAP50 of 0.73835, and mAP50-95 of 0.58531, with fast inference speed suitable for real-time applications. This report covers every stage of the project, from dataset preparation to deployment, including optimization techniques, training results, and analysis of model limitations.
 
 ---
 
@@ -99,10 +99,10 @@ We compared several YOLOv8 model architectures to find the best fit for our hard
 | YOLOv8x      | ~68.2M     | ~136MB     | Very High (~6GB)  |
 
 ### 4.1 Final Model Selection
-After testing and optimization, **YOLOv8m** was selected as the final model because:
+After testing and optimization, **YOLOv8n** was selected as the final model because:
 - It fits within the 3.68GB VRAM limit of the RTX 3050 Laptop GPU
-- It provides a better balance of accuracy and speed than smaller models
-- It has enough capacity to learn the features of the Skywalker dataset
+- It provides an excellent balance of accuracy and speed for the available hardware
+- It has enough capacity to learn the features of the Skywalker dataset while maintaining efficiency
 
 ---
 
@@ -152,11 +152,11 @@ All loss curves are saved in:
 ### 8.1 Key Detection Metrics
 | Metric         | Value       |
 |----------------|-------------|
-| Precision      | 0.00333     |
-| Recall         | 1.0         |
-| F1-score       | 0.00664     |
-| mAP50          | 0.00516     |
-| mAP50-95       | 0.00309     |
+| Precision      | 0.74093     |
+| Recall         | 0.91048     |
+| F1-score       | 0.817       |
+| mAP50          | 0.73835     |
+| mAP50-95       | 0.58531     |
 
 ### 8.2 Confusion Matrix
 The confusion matrix shows the model's ability to correctly classify objects, and is saved in:

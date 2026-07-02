@@ -1,0 +1,16 @@
+{
+    "device": "0",
+    "num_images_benchmarked": 2,
+    "latency_ms": {
+        "preprocess": 0.829,
+        "inference": 31.521,
+        "postprocess": 0.333,
+        "total_average": 32.683,
+        "p50_median": 32.683,
+        "p95_percentile": 47.399,
+        "p99_percentile": 48.707
+    },
+    "fps": 30.6,
+    "wall_clock_ms_per_image": 36.989,
+    "wall_clock_fps": 27.03
+}

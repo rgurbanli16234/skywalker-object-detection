@@ -1,21 +1,24 @@
+
 # Dataset
-dataset/
+dataset/images/*
+dataset/labels/*
 dummy_data.yaml
 
-# Large weights and serialized models
+# Ignore root-level weights
+/yolov8n.pt
+/yolov8m.pt
+/yolov8x.pt
+
+# Large weights and serialized models (except in outputs/weights)
 *.pt
 *.onnx
 *.torchscript
 *.engine
-release/best.pt
-release/last.pt
-release/onnx/
-release/torchscript/
-release/tensorrt/
-release/quantized/
+!outputs/weights/*.pt
+!outputs/weights/*.onnx
+!outputs/weights/*.torchscript
 
-# Outputs and runs
-outputs/
+# Outputs and runs (keep our structured outputs/)
 runs/
 
 # Logs
@@ -36,3 +39,10 @@ env/
 # System-specific files
 .DS_Store
 Thumbs.db
+
+# Temporary files
+*.tmp
+*.cache
+*.swp
+*.swo
+

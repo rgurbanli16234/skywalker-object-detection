@@ -1,0 +1,12 @@
+{
+    "aframe_0501 (1).jpg": {
+        "num_detections": 0,
+        "detections": [],
+        "visualized_image_path": "/home/rasul-gurbanli/Desktop/skywalker_20/skywalker_20/outputs/predictions/pred_aframe_0501 (1).jpg"
+    },
+    "aframe_0501.jpg": {
+        "num_detections": 0,
+        "detections": [],
+        "visualized_image_path": "/home/rasul-gurbanli/Desktop/skywalker_20/skywalker_20/outputs/predictions/pred_aframe_0501.jpg"
+    }
+}

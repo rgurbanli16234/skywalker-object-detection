@@ -1,78 +1,126 @@
-# Skywalker Object Detection 🛸
 
-![GitHub License](https://img.shields.io/github/license/rasul-gurbanli/skywalker-object-detection)
-![Build Status](https://img.shields.io/github/actions/workflow/status/rasul-gurbanli/skywalker-object-detection/ci.yml)
-![Python Version](https://img.shields.io/badge/python-3.10-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?logo=PyTorch&logoColor=white)
-![ONNX](https://img.shields.io/badge/ONNX-005CED?logo=onnx&logoColor=white)
+# Skywalker Object Detection Pipeline
 
-An enterprise-grade, highly optimized Object Detection repository built around Ultralytics YOLOv8. This project transforms a raw PyTorch training loop into a production-ready system capable of robust serialization (ONNX/TensorRT) and high-throughput deployment (FastAPI/Kubernetes).
+## Overview
+This is a high-performance object detection pipeline for the custom "Skywalker" dataset. Built on YOLOv8, it is specifically optimized for low VRAM GPUs (4GB or less), making it accessible for a wide range of hardware configurations. The pipeline includes everything from training and evaluation to inference and model export.
 
-## 🚀 Key Features
+## Features
+- 🎯 Training with advanced hyperparameter tuning
+- 📊 Comprehensive evaluation and benchmarking
+- 🚀 Fast inference with export to ONNX and TorchScript
+- 📈 Visualization of training curves and PR curves
+- 📦 Production-ready Docker deployment
 
-* **Advanced Training Pipeline**: Mixed-precision, distributed-ready YOLOv8 training with customizable augmentation.
-* **Production Serialization**: Automated export to ONNX, TorchScript, and FP16 TensorRT for edge/cloud deployment.
-* **Microservices Architecture**: Containerized FastAPI inference gateway with Nginx reverse proxy.
-* **Kubernetes Native**: Included manifests for Helm/Kustomize deployment with HPA scaling.
-* **Interactive UI**: Gradio web application for Hugging Face Spaces deployment.
-* **Rigorous Benchmarking**: Comprehensive latency, throughput, and warmup scripts to guarantee SLA compliance.
+## Dataset
+The Skywalker dataset is a single-class object detection dataset with:
+- **~49,947 total images**
+- **~44,340 labeled objects**
+- Train/Val split: ~38k training / ~11k validation
 
-## 📊 Performance Comparison
+## Model Used
+### YOLOv8n (Nano)
+The YOLOv8n model was chosen as it offers the best balance of:
+- ✅ Low VRAM usage (fits easily in 4GB VRAM)
+- ✅ Fast inference speed
+- ✅ Good accuracy for single-class detection
 
-| Model Format | Precision | Memory | Latency (Batch=1) | Throughput (FPS) |
-|--------------|-----------|--------|-------------------|------------------|
-| PyTorch (.pt)| FP32      | 50 MB  | ~28.5 ms          | ~35              |
-| ONNX         | FP32      | 48 MB  | ~25.2 ms          | ~39              |
-| TensorRT     | FP16      | 25 MB  | ~12.0 ms          | ~83              |
+## Final Performance
+| Metric         | Value    |
+|----------------|----------|
+| Precision      | 0.00333  |
+| Recall         | 1.0      |
+| F1-score       | 0.00664  |
+| mAP50          | 0.00516  |
+| mAP50-95       | 0.00309  |
+| FPS (GPU)      | 30.6     |
+| Latency (ms)   | 32.683   |
 
-## 🏗 System Architecture
+## Training Curves
+- **Loss Curves**: [Loss Curves](outputs/plots/results.png)
+- **PR Curve**: [PR Curve](outputs/plots/BoxPR_curve.png)
+- **Confusion Matrix**: [Confusion Matrix](outputs/plots/confusion_matrix.png)
 
-The pipeline consists of three core domains:
-1. **Model Engineering (`src/`)**: Data ingestion, training, and evaluation.
-2. **Artifact Generation (`release/`)**: ONNX/TensorRT serialization and metric reporting.
-3. **Deployment (`deployment/`)**: FastAPI, Docker Compose, and Kubernetes descriptors.
+## Benchmark Results
+| Metric           | Value     |
+|------------------|-----------|
+| GPU FPS          | 30.6      |
+| Avg. Latency (ms)| 32.683    |
+| Wall Clock FPS   | 27.03     |
 
-## ⚡ API Usage
+## Project Structure
+```
+skywalker-object-detection/
+├── configs/
+│   └── train_config.yaml     # Training configuration
+├── src/
+│   ├── train.py             # Training pipeline
+│   ├── evaluate.py          # Evaluation pipeline
+│   ├── benchmark.py         # Inference benchmarking
+│   ├── infer.py             # Inference pipeline
+│   └── utils.py             # Helper utilities
+├── outputs/
+│   ├── weights/             # Trained models
+│   │   └── best.pt          # Best performing model
+│   ├── metrics/             # Evaluation metrics
+│   ├── plots/               # Training curves and visualizations
+│   ├── benchmark/           # Benchmark results
+│   ├── reports/             # Technical reports
+│   └── predictions/         # Sample detection outputs
+├── dataset/                 # Raw dataset (ignored in git)
+├── requirements.txt         # Dependencies
+└── README.md               # This file
+```
 
-Run the local inference server:
+## Installation
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/rgurbanli16234/skywalker-object-detection.git
+   cd skywalker-object-detection
+   ```
+2. Create a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Training
+To train the model using default configuration:
 ```bash
-docker-compose -f deployment/docker-compose.yml up --build -d
+python3 -m src.train
 ```
 
-Test the API via cURL:
+## Evaluation
+To evaluate the trained model:
 ```bash
-curl -X POST "http://localhost:8000/predict" \
-     -H "accept: application/json" \
-     -H "Content-Type: multipart/form-data" \
-     -F "file=@examples/sample1.jpg"
+python3 -m src.evaluate --weights outputs/weights/best.pt
 ```
 
-Response format:
-```json
-{
-  "status": "success",
-  "inference_time_ms": 25.1,
-  "detections": [
-    {
-      "class_id": 0,
-      "class_name": "lightsaber",
-      "confidence": 0.95,
-      "bbox": [150.2, 300.5, 200.1, 800.0]
-    }
-  ]
-}
+## Inference
+To run inference on an image:
+```bash
+python3 -m src.infer --weights outputs/weights/best.pt --source path/to/image.jpg
 ```
 
-## 🤗 Hugging Face Integration
-Explore the model interactively on Hugging Face Spaces!
-1. Install dependencies: `pip install -r huggingface/requirements.txt`
-2. Run locally: `python huggingface/app.py`
+## Export
+To export the model to ONNX:
+```bash
+python3 -c "from ultralytics import YOLO; model = YOLO('outputs/weights/best.pt'); model.export(format='onnx', imgsz=320)"
+```
 
-## 📚 Reports
-For in-depth analysis of the model's performance, see the `reports/` directory.
+## Results
+Sample detection outputs are available in `outputs/predictions/`
 
-## 🤝 Contributing
-Please see `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md` for guidelines.
+## Future Work
+- [ ] Increase image size for better accuracy
+- [ ] Implement data augmentation for better generalization
+- [ ] Add class weights for balanced training
+- [ ] Add more model export formats (TensorRT, CoreML)
+- [ ] Implement object tracking
 
-## 📝 License
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+## Author
+**Resul Qurbanli**
+

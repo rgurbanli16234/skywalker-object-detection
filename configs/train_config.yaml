@@ -1,44 +1,45 @@
-# YOLOv8 Training Hyperparameters & Pipeline Configuration
+# YOLOv8 Training Hyperparameters & Pipeline Configuration - Ultra Low VRAM
 
 # Model settings
-model: yolov8m.pt              # Use YOLOv8m (best trade-off for accuracy/VRAM on this GPU)
+model: yolov8n.pt              # Use YOLOv8n (nano) for minimal VRAM usage
 
 # Dataset settings
 data: data.yaml                 # Path to data.yaml dataset config file
 
 # Training hyperparameters
-epochs: 30                      # Train for 30 epochs (good balance)
-imgsz: 640                      # Image size (640x640)
-batch: 4                        # Batch size optimized for 3.68GB VRAM
+epochs: 100                     # Train for 100 epochs
+imgsz: 320                      # Image size (320x320)
+batch: 1                        # Batch size = 1 (minimum possible)
+workers: 1                      # Number of dataloader workers (minimal RAM usage)
 device: 0                       # GPU device (0 for CUDA 0, or "cpu")
 amp: true                       # Enable Automatic Mixed Precision (AMP)
-deterministic: true             # Use deterministic training for reproducibility
+deterministic: false            # Disable deterministic to save VRAM
 plots: true                     # Save training curves, confusion matrix, PR/F1 curves
 save: true                      # Enable automatic checkpointing and save best.pt / last.pt
-patience: 10                    # Early stopping patience
-lr0: 0.01                       # Initial learning rate
-lrf: 0.01                       # Final learning rate (cosine scheduler)
+patience: 20                    # Early stopping patience
+lr0: 0.001                      # Initial learning rate
+lrf: 0.0001                     # Final learning rate (cosine scheduler)
 cos_lr: true                    # Cosine learning rate scheduler
-mosaic: 1.0                     # Heavy mosaic augmentation
-mixup: 0.15                     # Mixup augmentation
-hsv_h: 0.015                    # HSV hue augmentation
-hsv_s: 0.7                      # HSV saturation augmentation
-hsv_v: 0.4                      # HSV value augmentation
-degrees: 0.0                    # Rotation degrees
-translate: 0.1                  # Translation
-scale: 0.5                      # Scale augmentation
-shear: 0.0                      # Shear augmentation
-perspective: 0.0                # Perspective augmentation
-flipud: 0.0                     # Vertical flip
-fliplr: 0.5                     # Horizontal flip
-copy_paste: 0.3                 # Copy-paste augmentation
-label_smoothing: 0.1            # Label smoothing
-cache: "ram"                    # Cache dataset in RAM
-multi_scale: true               # Multi-scale training
+mosaic: 0.0                     # Disable mosaic (uses less VRAM)
+mixup: 0.0                      # Disable mixup
+hsv_h: 0.015                    # Light HSV hue augmentation
+hsv_s: 0.5                      # Light HSV saturation
+hsv_v: 0.3                      # Light HSV value
+degrees: 0.0                    # No rotation
+translate: 0.05                 # Light translation
+scale: 0.2                      # Light scale
+shear: 0.0                      # No shear
+perspective: 0.0                # No perspective
+flipud: 0.0                     # No vertical flip
+fliplr: 0.5                     # Horizontal flip still okay
+copy_paste: 0.0                 # Disable copy-paste
+label_smoothing: 0.0            # Disable label smoothing (saves VRAM)
+cache: false                    # Do NOT cache dataset (saves VRAM/RAM)
+multi_scale: false              # Disable multi-scale (saves VRAM)
 verbose: true                   # Print progress logs to stdout
-seed: 42                        # Seed for deterministic reproducibility
+seed: 42                        # Seed for reproducibility
 
 # Output directory settings
 project: outputs                # Root folder for saving model outputs
-name: skywalker_yolov8m_final   # Subdirectory for this specific training run
+name: skywalker_yolov8n_low_vram  # Subdirectory for this training run
 exist_ok: true                  # Overwrite or resume in the same directory if it exists

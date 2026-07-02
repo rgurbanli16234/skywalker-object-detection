@@ -1,6 +1,25 @@
 
 # Skywalker Object Detection Pipeline
 
+## 🚀 Final Key Detection Metrics (Prominent Results)
+### Core Object Detection Metrics
+| Metric         | Value       |
+|----------------|-------------|
+| Precision      | 0.00333     |
+| Recall         | 1.0         |
+| F1-score       | 0.00664     |
+| mAP50          | 0.00516     |
+| mAP50-95       | 0.00309     |
+
+### Inference Speed & Latency
+| Metric               | Value        |
+|----------------------|--------------|
+| GPU Inference FPS    | 30.6         |
+| Avg. Latency (ms)    | 32.683       |
+| Wall Clock FPS       | 27.03        |
+
+---
+
 ## Overview
 This is a high-performance object detection pipeline for the custom "Skywalker" dataset. Built on YOLOv8, it is specifically optimized for low VRAM GPUs (4GB or less), making it accessible for a wide range of hardware configurations. The pipeline includes everything from training and evaluation to inference and model export.
 

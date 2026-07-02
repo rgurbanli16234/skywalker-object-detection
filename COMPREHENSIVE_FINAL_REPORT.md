@@ -5,6 +5,25 @@
 
 ---
 
+## 📊 TOP PRIORITY: FINAL KEY DETECTION METRICS
+### Core Object Detection Metrics (Critical for Evaluation)
+| Metric         | Value       |
+|----------------|-------------|
+| Precision      | 0.00333     |
+| Recall         | 1.0         |
+| F1-score       | 0.00664     |
+| mAP50          | 0.00516     |
+| mAP50-95       | 0.00309     |
+
+### Inference Speed & Latency Metrics
+| Metric               | Value        |
+|----------------------|--------------|
+| GPU Inference FPS    | 30.6         |
+| Avg. Latency (ms)    | 32.683       |
+| Wall Clock FPS       | 27.03        |
+
+---
+
 ## Table of Contents
 1. [Abstract](#1-abstract)
 2. [Introduction & Problem Statement](#2-introduction--problem-statement)
